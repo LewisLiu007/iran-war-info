@@ -1,0 +1,79 @@
+[
+  {
+    "id": "aljazeera-rss",
+    "name": "Al Jazeera 中东 RSS",
+    "type": "rss",
+    "url": "https://www.aljazeera.com/xml/rss/all.xml",
+    "enabled": true
+  },
+  {
+    "id": "bbc-middleeast-rss",
+    "name": "BBC 中东 RSS",
+    "type": "rss",
+    "url": "http://feeds.bbci.co.uk/news/world/middle_east/rss.xml",
+    "enabled": true
+  },
+  {
+    "id": "guardian-middleeast-rss",
+    "name": "Guardian 中东 RSS",
+    "type": "rss",
+    "url": "https://www.theguardian.com/world/middleeast/rss",
+    "enabled": true
+  },
+  {
+    "id": "timesofisrael-rss",
+    "name": "Times of Israel RSS",
+    "type": "rss",
+    "url": "https://www.timesofisrael.com/feed/",
+    "enabled": true
+  },
+  {
+    "id": "jpost-rss",
+    "name": "Jerusalem Post RSS",
+    "type": "rss",
+    "url": "https://www.jpost.com/rss/rssfeedsmiddleeast.aspx",
+    "enabled": true
+  },
+  {
+    "id": "iranintl-rss",
+    "name": "Iran International RSS",
+    "type": "rss",
+    "url": "https://www.iranintl.com/en/rss",
+    "enabled": true
+  },
+  {
+    "id": "reuters-mideast-rss",
+    "name": "Reuters Middle East RSS",
+    "type": "rss",
+    "url": "https://www.reutersagency.com/feed/?taxonomy=best-regions&post_type=best&best-regions=middle-east",
+    "enabled": true
+  },
+  {
+    "id": "apnews-middleeast-rss",
+    "name": "AP News 中东 RSS",
+    "type": "rss",
+    "url": "https://feedx.net/rss/apme.xml",
+    "enabled": true
+  },
+  {
+    "id": "nitter-intikinetix",
+    "name": "Nitter(Twitter代理): IntelliTimes",
+    "type": "nitter",
+    "url": "https://nitter.net/IntelliTimes/rss",
+    "enabled": true
+  },
+  {
+    "id": "nitter-intelisky",
+    "name": "Nitter(Twitter代理): IntelSky",
+    "type": "nitter",
+    "url": "https://nitter.net/IntelSky/rss",
+    "enabled": true
+  },
+  {
+    "id": "nitter-oslonintel",
+    "name": "Nitter(Twitter代理): OSINTdefender",
+    "type": "nitter",
+    "url": "https://nitter.net/sentdefender/rss",
+    "enabled": true
+  }
+]

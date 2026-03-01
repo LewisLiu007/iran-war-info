@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美国-以色列-伊朗战争信息实时聚合</title>
+  <style>
+    :root {
+      --bg: #181a1b;
+      --card: #23272a;
+      --text: #e8e8e8;
+      --accent: #f7c325;
+      --border: #333;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', 'PingFang SC', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: var(--card);
+      padding: 18px 24px;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+      color: var(--accent);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .controls input, .controls select, .controls button {
+      padding: 7px 12px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1em;
+    }
+    .controls button {
+      background: var(--accent);
+      color: #222;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .controls button:hover { opacity: 0.85; }
+    #status {
+      margin-left: auto;
+      font-size: 0.95em;
+      color: #aaa;
+    }
+    main {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 12px;
+    }
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .news-card {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      transition: box-shadow 0.2s;
+    }
+    .news-card:hover {
+      box-shadow: 0 2px 16px #f7c32533;
+    }
+    .news-card h2 {
+      margin: 0 0 6px 0;
+      font-size: 1.15em;
+    }
+    .news-card h2 a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    .news-card h2 a:hover { color: var(--accent); }
+    .news-card .meta {
+      font-size: 0.92em;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .news-card .summary {
+      color: #ccc;
+      font-size: 0.98em;
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      #status { margin-left: 0; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌍 美国-以色列-伊朗战争信息聚合</h1>
+    <div class="controls">
+      <input type="text" id="search" placeholder="搜索关键词...">
+      <select id="sourceFilter"><option value="">全部来源</option></select>
+      <label>刷新间隔:
+        <input type="number" id="refreshInterval" min="10" value="60" style="width:60px;"> 秒
+      </label>
+      <button id="manualFetch">立即刷新</button>
+    </div>
+    <span id="status">加载中...</span>
+  </header>
+  <main>
+    <div class="news-list" id="newsList"></div>
+  </main>
+  <script>
+    let sources = [];
+    let refreshTimer = null;
+    let refreshInterval = 60;
+
+    async function loadSources() {
+      const res = await fetch('/api/sources');
+      sources = await res.json();
+      const sel = document.getElementById('sourceFilter');
+      sel.innerHTML = '<option value="">全部来源</option>';
+      sources.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = s.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    async function loadConfig() {
+      const res = await fetch('/api/config');
+      const cfg = await res.json();
+      refreshInterval = cfg.refreshInterval || 60;
+      document.getElementById('refreshInterval').value = refreshInterval;
+    }
+
+    async function saveConfig() {
+      const val = parseInt(document.getElementById('refreshInterval').value, 10);
+      if (val >= 10) {
+        refreshInterval = val;
+        await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refreshInterval: val })
+        });
+        restartAutoRefresh();
+      }
+    }
+
+    async function loadItems() {
+      const search = document.getElementById('search').value;
+      const source_id = document.getElementById('sourceFilter').value;
+      let url = '/api/items?limit=200';
+      if (search) url += '&search=' + encodeURIComponent(search);
+      if (source_id) url += '&source_id=' + encodeURIComponent(source_id);
+      const res = await fetch(url);
+      const data = await res.json();
+      renderItems(data.items, data.total);
+      updateStatus();
+    }
+
+    function renderItems(items, total) {
+      const list = document.getElementById('newsList');
+      if (!items.length) {
+        list.innerHTML = '<div style="color:#aaa;">暂无数据</div>';
+        return;
+      }
+      list.innerHTML = items.map(item => {
+        const src = sources.find(s => s.id === item.source_id);
+        const srcName = src ? src.name : item.source_id;
+        const pubDate = item.pub_date ? new Date(item.pub_date).toLocaleString('zh-CN') : '';
+        return `<div class="news-card">
+          <h2><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></h2>
+          <div class="meta">${srcName} · ${pubDate}</div>
+          <div class="summary">${item.summary ? item.summary.slice(0, 200) : ''}</div>
+        </div>`;
+      }).join('');
+    }
+
+    async function updateStatus() {
+      const res = await fetch('/api/health');
+      const data = await res.json();
+      document.getElementById('status').textContent =
+        `上次抓取: ${data.lastFetchTime ? new Date(data.lastFetchTime).toLocaleString('zh-CN') : '—'}`;
+    }
+
+    async function manualFetch() {
+      document.getElementById('status').textContent = '正在刷新...';
+      await fetch('/api/fetch', { method: 'POST' });
+      await loadItems();
+    }
+
+    function restartAutoRefresh() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = setInterval(loadItems, refreshInterval * 1000);
+    }
+
+    document.getElementById('manualFetch').onclick = manualFetch;
+    document.getElementById('search').oninput = loadItems;
+    document.getElementById('sourceFilter').onchange = loadItems;
+    document.getElementById('refreshInterval').onchange = saveConfig;
+
+    (async () => {
+      await loadSources();
+      await loadConfig();
+      await loadItems();
+      restartAutoRefresh();
+    })();
+  </script>
+</body>
+</html>
