@@ -32,48 +32,167 @@
     "name": "Jerusalem Post RSS",
     "type": "rss",
     "url": "https://www.jpost.com/rss/rssfeedsmiddleeast.aspx",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "iranintl-rss",
     "name": "Iran International RSS",
     "type": "rss",
     "url": "https://www.iranintl.com/en/rss",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "reuters-mideast-rss",
     "name": "Reuters Middle East RSS",
     "type": "rss",
     "url": "https://www.reutersagency.com/feed/?taxonomy=best-regions&post_type=best&best-regions=middle-east",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "apnews-middleeast-rss",
     "name": "AP News 中东 RSS",
     "type": "rss",
     "url": "https://feedx.net/rss/apme.xml",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "nitter-intikinetix",
     "name": "Nitter(Twitter代理): IntelliTimes",
     "type": "nitter",
     "url": "https://nitter.net/IntelliTimes/rss",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "nitter-intelisky",
     "name": "Nitter(Twitter代理): IntelSky",
     "type": "nitter",
     "url": "https://nitter.net/IntelSky/rss",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "nitter-oslonintel",
     "name": "Nitter(Twitter代理): OSINTdefender",
     "type": "nitter",
     "url": "https://nitter.net/sentdefender/rss",
+    "enabled": false
+  },
+  {
+    "id": "unnews-middleeast-rss",
+    "name": "UN News Middle East RSS",
+    "type": "rss",
+    "url": "https://news.un.org/feed/subscribe/en/news/region/middle-east/feed/rss.xml",
     "enabled": true
+  },
+  {
+    "id": "crisisgroup-rss",
+    "name": "International Crisis Group RSS",
+    "type": "rss",
+    "url": "https://www.crisisgroup.org/rss.xml?language=en",
+    "enabled": true
+  },
+  {
+    "id": "middleeasteye-rss",
+    "name": "Middle East Eye RSS",
+    "type": "rss",
+    "url": "https://www.middleeasteye.net/rss.xml",
+    "enabled": true
+  },
+  {
+    "id": "economist-mea-rss",
+    "name": "The Economist: Middle East & Africa RSS",
+    "type": "rss",
+    "url": "https://www.economist.com/middle-east-and-africa/rss.xml",
+    "enabled": true
+  },
+  {
+    "id": "atlanticcouncil-me-rss",
+    "name": "Atlantic Council Middle East RSS",
+    "type": "rss",
+    "url": "https://www.atlanticcouncil.org/region/middle-east/feed/",
+    "enabled": true
+  },
+  {
+    "id": "amnesty-mena-rss",
+    "name": "Amnesty International MENA RSS",
+    "type": "rss",
+    "url": "https://www.amnesty.org/en/location/middle-east-and-north-africa/feed/",
+    "enabled": true
+  },
+  {
+    "id": "hrw-mena-rss",
+    "name": "Human Rights Watch RSS",
+    "type": "rss",
+    "url": "https://www.hrw.org/rss/news",
+    "enabled": true
+  },
+  {
+    "id": "uk-mod-atom",
+    "name": "UK Ministry of Defence Atom",
+    "type": "rss",
+    "url": "https://www.gov.uk/government/organisations/ministry-of-defence.atom",
+    "enabled": true
+  },
+  {
+    "id": "warontherocks-rss",
+    "name": "War on the Rocks RSS",
+    "type": "rss",
+    "url": "https://warontherocks.com/feed/",
+    "enabled": true
+  },
+  {
+    "id": "bellingcat-rss",
+    "name": "Bellingcat RSS",
+    "type": "rss",
+    "url": "https://www.bellingcat.com/feed/",
+    "enabled": true
+  },
+  {
+    "id": "france24-middleeast-rss",
+    "name": "FRANCE 24 Middle East RSS",
+    "type": "rss",
+    "url": "https://www.france24.com/en/middle-east/rss",
+    "enabled": true
+  },
+  {
+    "id": "almonitor-rss",
+    "name": "Al-Monitor RSS",
+    "type": "rss",
+    "url": "https://www.al-monitor.com/rss",
+    "enabled": true
+  },
+  {
+    "id": "aa-world-rss",
+    "name": "Anadolu Agency World RSS",
+    "type": "rss",
+    "url": "https://www.aa.com.tr/en/rss/default?cat=world",
+    "enabled": true
+  },
+  {
+    "id": "nytimes-middleeast-rss",
+    "name": "NYTimes Middle East RSS",
+    "type": "rss",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml",
+    "enabled": false
+  },
+  {
+    "id": "nitter-idf",
+    "name": "Nitter: IDF",
+    "type": "nitter",
+    "url": "https://nitter.privacydev.net/IDF/rss",
+    "enabled": false
+  },
+  {
+    "id": "nitter-centcom",
+    "name": "Nitter: U.S. Central Command (CENTCOM)",
+    "type": "nitter",
+    "url": "https://nitter.privacydev.net/CENTCOM/rss",
+    "enabled": false
+  },
+  {
+    "id": "nitter-defencehq",
+    "name": "Nitter: UK DefenceHQ",
+    "type": "nitter",
+    "url": "https://nitter.privacydev.net/DefenceHQ/rss",
+    "enabled": false
   }
 ]
